@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import styles from './app-header.module.css';
 import { TAppHeaderUIProps } from './type';
-<<<<<<< HEAD
 import {
   BurgerIcon,
   ListIcon,
@@ -32,11 +31,5 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         </p>
       </div>
     </nav>
-=======
-
-export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
-  <header className={styles.header}>
-    <nav className={`${styles.menu} p-4`} />
->>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
   </header>
 );

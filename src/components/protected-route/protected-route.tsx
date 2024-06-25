@@ -10,8 +10,8 @@ import { Preloader } from '@ui';
 // import { fetchOrders } from '../../services/slices/orders';
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({ onlyUnAuth, children }) => {
-  // const isAuthChecked = useSelector(selectIsAuthChecked);
-  // const user = useSelector(selectUserData);
+  const isAuthChecked = useSelector(selectIsAuthChecked);
+  const user = useSelector(selectUserData);
   const location = useLocation();
 
   if (!isAuthChecked) {

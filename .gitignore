@@ -1,8 +1,4 @@
 node_modules
 .env
 .idea
-<<<<<<< HEAD
-=======
-.vscode
->>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
 dist

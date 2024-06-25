@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useSelector } from '../../services/store/store';
-=======
 import { useSelector } from '../../services/store';
->>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
 
 import styles from './constructor-page.module.css';
 
@@ -12,14 +8,8 @@ import { Preloader } from '../../components/ui';
 import { FC } from 'react';
 
 export const ConstructorPage: FC = () => {
-<<<<<<< HEAD
   /** TODO: взять переменную из стора */
   const isIngredientsLoading = false;
-=======
-  const isIngredientsLoading = useSelector(
-    (state) => state.ingredients.isLoading
-  );
->>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
 
   return (
     <>

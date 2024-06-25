@@ -12,7 +12,5 @@ export * from './order-info';
 export * from './order-status';
 export * from './orders-list';
 export * from './profile-menu';
-<<<<<<< HEAD
 export * from './protected-route';
-=======
->>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
+

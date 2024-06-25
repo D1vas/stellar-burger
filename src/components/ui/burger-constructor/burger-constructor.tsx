@@ -86,11 +86,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         onClick={onOrderClick}
       />
     </div>
-<<<<<<< HEAD
 
-=======
-    {/* Прелоадер в данном месте в "Можно лучше" */}
->>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
     {orderRequest && (
       <Modal onClose={closeOrderModal} title={'Оформляем заказ...'}>
         <Preloader />
