@@ -18,6 +18,12 @@ export const RegisterUI: FC<RegisterUIProps> = ({
   userName,
   setUserName
 }) => (
+<<<<<<< HEAD
+=======
+  /*
+    Отображение ошибок и валидация форм в "можно лучше"
+  */
+>>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
   <main className={styles.container}>
     <div className={`pt-6 ${styles.wrapCenter}`}>
       <h3 className='pb-6 text text_type_main-medium'>Регистрация</h3>

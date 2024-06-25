@@ -10,6 +10,13 @@ export function getCookie(name: string): string | undefined {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+<<<<<<< HEAD
+=======
+/* В тренажере приводится несовсем корректный пример этой функции
+ там не задается path и возможна ситуация, когда на разных страницах в cookies
+ будут разные токены, поэтому в path нужно задавать корень сайта path: '/' */
+
+>>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
 export function setCookie(
   name: string,
   value: string,

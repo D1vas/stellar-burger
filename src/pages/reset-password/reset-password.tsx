@@ -12,6 +12,13 @@ export const ResetPassword: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+<<<<<<< HEAD
+=======
+    /*
+      Здесь допускается не использовать redux для
+      выполнения запроса
+    */
+>>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
     setError(null);
     resetPasswordApi({ password, token })
       .then(() => {

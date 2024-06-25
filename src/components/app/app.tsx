@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   ConstructorPage,
   Feed,
@@ -144,5 +145,17 @@ const App = () => {
     </div>
   );
 };
+=======
+import '../../index.css';
+import styles from './app.module.css';
+
+import { AppHeader } from '@components';
+
+const App = () => (
+  <div className={styles.app}>
+    <AppHeader />
+  </div>
+);
+>>>>>>> a54ca2fff2f821f840d691e8e4ed242be00ad31e
 
 export default App;
