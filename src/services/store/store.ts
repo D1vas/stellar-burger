@@ -1,37 +1,36 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { ingredientsSlice } from '../slices/ingredients';
-// import { ordersSlice } from '../slices/orders';
-// import { orderSlice } from './slices/order';
-// import { feedSlice } from './slices/feed';
-// import { userSlice } from './slices/user';
-// import { burgerConstructorSlice } from './slices/burgerConstructor';
-import { combineReducers } from '@reduxjs/toolkit';
-
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
+import { Middleware, configureStore, combineReducers } from '@reduxjs/toolkit';
 
-const rootReducer = combineReducers({
-  [ingredientsSlice.name]: ingredientsSlice.reducer
-  // [feedSlice.name]: feedSlice.reducer,
-  // [ordersSlice.name]: ordersSlice.reducer,
-  // [orderSlice.name]: orderSlice.reducer,
-  // [userSlice.name]: userSlice.reducer,
-  // [burgerConstructorSlice.name]: burgerConstructorSlice.reducer
+import { ingredientsReducer } from '../slices/ingredients';
+import feedsReducer from '../slices/feed';
+import userReducer from '../slices/user';
+import builderReducer from '../slices/builder';
+import ordersReducer from '../slices/orders';
+
+// import ordersMiddleware from '../middlewares/orders';
+
+export const rootReducer = combineReducers({
+  user: userReducer,
+  builder: builderReducer,
+  ingredients: ingredientsReducer,
+  feeds: feedsReducer,
+  orders: ordersReducer
 });
 
-const store = configureStore({
+export const store = configureStore({
   reducer: rootReducer,
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware().concat(ordersMiddleware),
   devTools: process.env.NODE_ENV !== 'production'
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export const useDispatch: () => AppDispatch = () => dispatchHook();
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
-
-export default store;
+export const useDispatch = dispatchHook.withTypes<AppDispatch>();
+export const useSelector = selectorHook.withTypes<RootState>();

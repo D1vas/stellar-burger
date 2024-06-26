@@ -1,130 +1,167 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { TUser } from '@utils-types';
 import {
-  checkUserAuth,
-  getUser,
-  loginUser,
-  logoutUser,
-  registerUser,
-  updateUser
-} from '../thunk/user';
-import { deleteCookie } from '../../utils/cookie';
+  SerializedError,
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit';
 
-interface UserState {
-  request: boolean;
+import {
+  TLoginData,
+  TRegisterData,
+  getUserApi,
+  loginUserApi,
+  logoutApi,
+  registerUserApi,
+  updateUserApi
+} from '@api';
+
+import { TUser } from '@utils-types';
+import { clearTokens, storeTokens } from '../../../utils/auth';
+
+type TUserState = {
   isAuthChecked: boolean;
-  data: TUser | null;
-  loginError: string;
-  registerError: string;
-  updateError: string;
-}
-
-const initialState: UserState = {
-  request: false,
-  isAuthChecked: false,
-  data: null,
-  loginError: '',
-  registerError: '',
-  updateError: ''
+  isAuthenticated: boolean;
+  loginError?: SerializedError;
+  registerError?: SerializedError;
+  data: TUser;
 };
 
-const userSlice = createSlice({
+export const initialState: TUserState = {
+  isAuthChecked: false,
+  isAuthenticated: false,
+  data: {
+    name: '',
+    email: ''
+  }
+};
+
+export const register = createAsyncThunk<TUser, TRegisterData>(
+  'user/register',
+  async (data, { rejectWithValue }) => {
+    const response = await registerUserApi(data);
+
+    if (!response?.success) {
+      return rejectWithValue(response);
+    }
+
+    const { user, refreshToken, accessToken } = response;
+
+    storeTokens(refreshToken, accessToken);
+
+    return user;
+  }
+);
+
+export const login = createAsyncThunk<TUser, TLoginData>(
+  'user/login',
+  async (data, { rejectWithValue }) => {
+    const response = await loginUserApi(data);
+
+    if (!response?.success) {
+      return rejectWithValue(response);
+    }
+
+    const { user, refreshToken, accessToken } = response;
+
+    storeTokens(refreshToken, accessToken);
+
+    return user;
+  }
+);
+
+export const logout = createAsyncThunk(
+  'user/logout',
+  async (_, { rejectWithValue }) => {
+    const response = await logoutApi();
+
+    if (!response?.success) {
+      return rejectWithValue(response);
+    }
+
+    clearTokens();
+  }
+);
+
+export const fetchUser = createAsyncThunk(
+  'user/fetch',
+  async (_, { rejectWithValue }) => {
+    const response = await getUserApi();
+
+    if (!response?.success) {
+      return rejectWithValue(response);
+    }
+
+    return response.user;
+  }
+);
+
+export const updateUser = createAsyncThunk<TUser, Partial<TRegisterData>>(
+  'user/update',
+  async (data, { rejectWithValue }) => {
+    const response = await updateUserApi(data);
+
+    if (!response?.success) {
+      return rejectWithValue(response);
+    }
+
+    return response.user;
+  }
+);
+
+const slice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    authChecked: (state) => {
-      state.isAuthChecked = true;
-    }
-  },
-  selectors: {
-    selectUserData: (state) => state.data,
-    selectIsAuthChecked: (state) => state.isAuthChecked,
-    selectRequest: (state) => state.request,
-    selectLoginError: (state) => state.loginError,
-    selectRegisterError: (state) => state.registerError,
-    selectUpdateError: (state) => state.updateError
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
-        state.request = true;
+      .addCase(register.pending, (state) => {
+        state.registerError = undefined;
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.isAuthChecked = true;
-        state.loginError = action.error.message || '';
-        state.request = false;
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.isAuthChecked = true;
+      .addCase(register.fulfilled, (state, action) => {
+        state.registerError = undefined;
+        state.isAuthenticated = true;
+
         state.data = action.payload;
-        state.request = false;
-        state.loginError = '';
       })
-      .addCase(logoutUser.pending, (state) => {
-        state.request = true;
+      .addCase(register.rejected, (state, action) => {
+        state.registerError = action.meta.rejectedWithValue
+          ? (action.payload as SerializedError)
+          : action.error;
       })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.request = false;
-        localStorage.clear();
-        deleteCookie('accessToken');
-        state.data = null;
+      .addCase(login.pending, (state, action) => {
+        state.loginError = undefined;
       })
-      .addCase(logoutUser.rejected, (state) => {
-        state.request = false;
-        console.log('Ошибка выполнения выхода');
-      })
-      .addCase(registerUser.pending, (state) => {
-        state.request = true;
-      })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.registerError = action.error.message || '';
-        state.request = false;
-      })
-      .addCase(registerUser.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action) => {
+        state.loginError = undefined;
+        state.isAuthenticated = true;
+
         state.data = action.payload;
-        state.request = false;
       })
-      .addCase(checkUserAuth.pending, (state) => {
-        state.loginError = '';
-        state.registerError = '';
+      .addCase(login.rejected, (state, action) => {
+        state.loginError = action.meta.rejectedWithValue
+          ? (action.payload as SerializedError)
+          : action.error;
       })
-      .addCase(getUser.fulfilled, (state, action) => {
-        state.data = action.payload.user;
+      .addCase(logout.fulfilled, (state) => {
+        state.isAuthenticated = false;
+
+        state.data = {
+          email: '',
+          name: ''
+        };
       })
-      .addCase(updateUser.pending, (state) => {
-        state.request = true;
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.isAuthenticated = true;
+        state.isAuthChecked = true;
+
+        state.data = action.payload;
+      })
+      .addCase(fetchUser.rejected, (state) => {
+        state.isAuthChecked = true;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.data = action.payload.user;
-        state.request = false;
-      })
-      .addCase(updateUser.rejected, (state, action) => {
-        state.request = false;
-        state.updateError = action.error.message || '';
+        state.data = action.payload;
       });
   }
 });
 
-const userReducer = userSlice.reducer;
-const {
-  selectUserData,
-  selectIsAuthChecked,
-  selectRequest,
-  selectLoginError,
-  selectRegisterError,
-  selectUpdateError
-} = userSlice.selectors;
-const { authChecked } = userSlice.actions;
-
-export {
-  userSlice,
-  userReducer,
-  registerUser,
-  selectUserData,
-  selectIsAuthChecked,
-  selectRequest,
-  selectLoginError,
-  selectRegisterError,
-  selectUpdateError,
-  authChecked
-};
+export default slice.reducer;

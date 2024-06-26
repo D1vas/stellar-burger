@@ -13,6 +13,7 @@ import {
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import {
+  AppHeader,
   IngredientDetails,
   Modal,
   OrderInfo,
@@ -30,18 +31,19 @@ const App = () => {
   const navigate = useNavigate();
   const state = location.state as { background?: Location };
 
-  // const handleModalClose = () => {
-  //   navigate(-1);
-  //   dispatch(resetOrderModalData());
-  // };
+  const handleModalClose = () => {
+    navigate(-1);
+    dispatch(resetOrderModalData());
+  };
 
   useEffect(() => {
-    // dispatch(fetchUser());
+    dispatch(fetchUser());
     dispatch(fetchIngredients());
   }, [dispatch]);
 
   return (
     <div className={styles.app}>
+      <AppHeader />
       <Routes location={state?.background || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />

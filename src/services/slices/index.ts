@@ -2,3 +2,31 @@ export {
   fetchIngredients,
   initialState as ingredientsInitialState
 } from './ingredients';
+
+export { fetchFeeds, initialState as feedsInitialState } from './feed';
+
+export {
+  fetchUser,
+  updateUser,
+  register,
+  login,
+  logout,
+  initialState as userInitialState
+} from './user';
+
+export {
+  setBun,
+  addIngredient,
+  removeIngredient,
+  moveIngredient,
+  resetConstructor,
+  initialState as constructorInitialState
+} from './builder';
+
+export {
+  fetchOrder,
+  fetchOrders,
+  createOrder,
+  resetOrderModalData,
+  initialState as ordersInitialState
+} from './orders';

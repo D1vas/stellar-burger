@@ -1,8 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 
-interface ProtectedRouteProps {
-  children: ReactNode;
+export type TProtectedRouteProps = {
   onlyUnAuth?: boolean;
-}
-
-export type { ProtectedRouteProps };
+  children: ReactElement;
+};
