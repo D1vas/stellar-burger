@@ -20,7 +20,7 @@ import {
   ProtectedRoute
 } from '@components';
 import { useEffect } from 'react';
-import { useDispatch } from '../../services/store/store';
+import { useDispatch } from '@store';
 import { fetchUser, fetchIngredients, resetOrderModalData } from '@slices';
 import styles from './app.module.css';
 
