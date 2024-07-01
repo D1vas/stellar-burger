@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { Preloader } from '@ui';
-import { useSelector } from '../../services/store';
+import { useSelector } from '@store';
 import { FC } from 'react';
 import { TProtectedRouteProps } from './type';
 

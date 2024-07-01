@@ -3,6 +3,7 @@ import { TIngredient } from '@utils-types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 interface IngredientsState {
+  [x: string]: any;
   isLoading: boolean;
   ingredients: TIngredient[];
 }
