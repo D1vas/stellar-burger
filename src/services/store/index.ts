@@ -1,9 +1,8 @@
 import {
-  TypedUseSelectorHook,
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import { Middleware, configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import { ingredientsReducer } from '../slices/ingredients';
 import feedsReducer from '../slices/feed';

@@ -1,6 +1,5 @@
 import { getFeedsApi } from '@api';
 import {
-  PayloadAction,
   SerializedError,
   createAsyncThunk,
   createSlice
