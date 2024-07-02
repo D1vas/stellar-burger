@@ -41,10 +41,11 @@ const ingredientsSlice = createSlice({
   }
 });
 
-export const ingredientsReducer = ingredientsSlice.reducer;
+const ingredientsReducer = ingredientsSlice.reducer;
 const { selectorIngredients, selectorIsLoading } = ingredientsSlice.selectors;
 
 export {
+  ingredientsReducer,
   ingredientsSlice,
   selectorIngredients,
   selectorIsLoading,

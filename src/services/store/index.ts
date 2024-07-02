@@ -11,7 +11,7 @@ import userReducer from '../slices/user';
 import builderReducer from '../slices/builder';
 import ordersReducer from '../slices/orders';
 
-// import ordersMiddleware from '../middlewares/orders';
+import ordersMiddleware from '../middleware/index';
 
 export const rootReducer = combineReducers({
   user: userReducer,
@@ -23,8 +23,8 @@ export const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware().concat(ordersMiddleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(ordersMiddleware),
   devTools: process.env.NODE_ENV !== 'production'
 });
 
