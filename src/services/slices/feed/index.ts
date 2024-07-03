@@ -24,7 +24,10 @@ export const initialState: TFeedsState = {
 
 export const fetchFeeds = createAsyncThunk<TOrdersData>(
   'feeds/fetch',
-  async () => await getFeedsApi()
+  async () => {
+    const response = await getFeedsApi();
+    return response;
+  }
 );
 
 const slice = createSlice({
