@@ -1,54 +1,51 @@
 import { getIngredientsApi } from '@api';
+import {
+  SerializedError,
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-interface IngredientsState {
-  [x: string]: any;
+type TIngredientsState = {
   isLoading: boolean;
-  ingredients: TIngredient[];
-}
-
-const initialState: IngredientsState = {
-  isLoading: false,
-  ingredients: []
+  error: null | SerializedError;
+  data: TIngredient[];
 };
 
-const fetchIngredients = createAsyncThunk(
+export const initialState: TIngredientsState = {
+  isLoading: true,
+  error: null,
+  data: []
+};
+
+export const fetchIngredients = createAsyncThunk(
   'ingredients/fetch',
   async () => await getIngredientsApi()
 );
 
-const ingredientsSlice = createSlice({
+const slice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {},
-  selectors: {
-    selectorIngredients: (state) => state.ingredients,
-    selectorIsLoading: (state) => state.isLoading
-  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
-        state.ingredients = action.payload;
         state.isLoading = false;
+        state.error = null;
+        state.data = action.payload;
       })
-      .addCase(fetchIngredients.rejected, (state) => {
+      .addCase(fetchIngredients.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error;
       });
   }
 });
 
-const ingredientsReducer = ingredientsSlice.reducer;
-const { selectorIngredients, selectorIsLoading } = ingredientsSlice.selectors;
+// export const ingredientsReducer = slice.reducer;
+// export const { selectorIngredients, selectorIsLoading } = slice.selectors;
 
-export {
-  ingredientsReducer,
-  ingredientsSlice,
-  selectorIngredients,
-  selectorIsLoading,
-  fetchIngredients,
-  initialState
-};
+export default slice.reducer;

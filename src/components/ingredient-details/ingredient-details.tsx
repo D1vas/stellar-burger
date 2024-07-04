@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { Preloader, IngredientDetailsUI } from '@ui';
 import { useParams } from 'react-router-dom';
 import { useSelector } from '@store';
-import { selectorIngredients } from '../../services/slices/ingredients';
+// import { selectorIngredients } from '../../services/slices/ingredients';
 
 export const IngredientDetails: FC = () => {
   const { id } = useParams();
 
-  const ingredientData = useSelector(selectorIngredients).find(
-    (item) => item._id === id
+  const ingredientData = useSelector((state) =>
+    state.ingredients.data.find((ingredient) => ingredient._id === id)
   );
 
   if (!ingredientData) {

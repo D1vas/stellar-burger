@@ -4,7 +4,7 @@ import {
 } from 'react-redux';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
-import { ingredientsReducer } from '../slices/ingredients';
+import ingredientsReducer from '../slices/ingredients';
 import feedsReducer from '../slices/feed';
 import userReducer from '../slices/user';
 import builderReducer from '../slices/builder';
