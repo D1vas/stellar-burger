@@ -45,7 +45,4 @@ const slice = createSlice({
   }
 });
 
-// export const ingredientsReducer = slice.reducer;
-// export const { selectorIngredients, selectorIsLoading } = slice.selectors;
-
 export default slice.reducer;
