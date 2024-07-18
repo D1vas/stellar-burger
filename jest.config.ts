@@ -17,6 +17,11 @@ const config: JestConfigWithTsJest  = {
       },
     ],
   },
+  moduleNameMapper: {
+    '@api': '<rootDir>/src/utils/burger-api.ts',
+    '@auth': '<rootDir>/src/utils/auth.ts',
+    '@slices': '<rootDir>/src/services/slices'
+  },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
