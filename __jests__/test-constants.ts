@@ -29,7 +29,7 @@ const bunMockData = {
   __v: 0
 };
 
-const ingredient1MockData = {
+const ingredientMockData = {
   _id: '643d69a5c3f7b9001cfa093e',
   id: '1234567890',
   name: 'Филе Люминесцентного тетраодонтимформа',
@@ -45,7 +45,7 @@ const ingredient1MockData = {
   __v: 0
 };
 
-const ingredient2MockData = {
+const ingredient1MockData = {
   _id: '643d69a5c3f7b9001cfa093e',
   id: '0987654321',
   name: 'Филе Люминесцентного тетраодонтимформа',
@@ -61,11 +61,29 @@ const ingredient2MockData = {
   __v: 0
 };
 
+const ingredientsMockData = [
+  {
+    _id: '643d69a5c3f7b9001cfa093c',
+    name: 'Краторная булка N-200i',
+    type: 'bun',
+    proteins: 80,
+    fat: 24,
+    carbohydrates: 53,
+    calories: 420,
+    price: 1255,
+    image: 'https://code.s3.yandex.net/react/code/bun-02.png',
+    image_mobile: 'https://code.s3.yandex.net/react/code/bun-02-mobile.png',
+    image_large: 'https://code.s3.yandex.net/react/code/bun-02-large.png',
+    __v: 0
+  }
+];
+
 export {
   userMockData,
   registerMockData,
   loginMockData,
   bunMockData,
   ingredient1MockData,
-  ingredient2MockData
+  ingredientMockData,
+  ingredientsMockData
 };

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1721335263667" clover="3.2.0">
-  <project timestamp="1721335263667" name="All files">
-    <metrics statements="847" coveredstatements="526" conditionals="40" coveredconditionals="38" methods="52" coveredmethods="22" elements="939" coveredelements="586" complexity="0" loc="847" ncloc="847" packages="8" files="10" classes="10"/>
+<coverage generated="1721344318986" clover="3.2.0">
+  <project timestamp="1721344318987" name="All files">
+    <metrics statements="865" coveredstatements="544" conditionals="40" coveredconditionals="38" methods="52" coveredmethods="22" elements="957" coveredelements="604" complexity="0" loc="865" ncloc="865" packages="8" files="10" classes="10"/>
     <package name="__jests__">
-      <metrics statements="71" coveredstatements="71" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="89" coveredstatements="89" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="test-constants.ts" path="C:\Users\bayar\OneDrive\Рабочий стол\YandexFolder\stellar-burgers\__jests__\test-constants.ts">
-        <metrics statements="71" coveredstatements="71" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="89" coveredstatements="89" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -77,6 +77,24 @@
         <line num="69" count="1" type="stmt"/>
         <line num="70" count="1" type="stmt"/>
         <line num="71" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.services.slices">

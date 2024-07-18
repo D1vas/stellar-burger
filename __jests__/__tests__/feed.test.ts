@@ -9,7 +9,7 @@ const feedsMockData = {
 };
 
 describe('Тестирование feed', () => {
-  describe('Асинхронная функция для получения ленты заказов: fetchFeeds', () => {
+  describe('Асинхронная функция для получения ленты заказов: fetchFeed', () => {
     test('Начало запроса: fetchFeed.pending', () => {
       const state = reducer(feedsInitialState, fetchFeeds.pending('pending'));
 
