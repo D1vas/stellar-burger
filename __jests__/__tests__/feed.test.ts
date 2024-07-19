@@ -9,14 +9,14 @@ const feedsMockData = {
 };
 
 describe('Тестирование feed', () => {
-  describe('Асинхронная функция для получения ленты заказов: fetchFeed', () => {
-    test('Начало запроса: fetchFeed.pending', () => {
+  describe('Асинхронная функция: fetchFeed', () => {
+    test('Начало запроса (pending)', () => {
       const state = reducer(feedsInitialState, fetchFeeds.pending('pending'));
 
       expect(state.isLoading).toBeTruthy();
       expect(state.error).toBeNull();
     });
-    test('Результат запроса: fetchFeed.fulfilled', () => {
+    test('Результат запроса (fulfilled)', () => {
       const state = reducer(
         feedsInitialState,
         fetchFeeds.fulfilled(feedsMockData, 'fulfilled')
@@ -26,8 +26,8 @@ describe('Тестирование feed', () => {
       expect(state.error).toBeNull();
       expect(state.data).toEqual(feedsMockData);
     });
-    test('Ошибка запроса: fetchFeed.rejected', () => {
-      const error = 'fetchFeed.rejected';
+    test('Ошибка запроса (rejected)', () => {
+      const error = 'Error fetching feed';
 
       const state = reducer(
         feedsInitialState,

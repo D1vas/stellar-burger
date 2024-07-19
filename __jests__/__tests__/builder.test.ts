@@ -11,7 +11,7 @@ import reducer from '../../src/services/slices/builder';
 import {
   bunMockData,
   ingredientMockData,
-  ingredient1MockData,
+  ingredient1MockData
 } from '../test-constants';
 
 describe('Тестирование builder', () => {
