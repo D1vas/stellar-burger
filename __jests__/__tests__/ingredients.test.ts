@@ -27,7 +27,7 @@ describe('Тестирование ingredients', () => {
       expect(data).toEqual(ingredientsMockData);
     });
     test('получение ингредиентов (rejected)', () => {
-      const error = 'Error fetching ingredients';
+      const error = 'fetchIngredients.rejected';
       const state = reducer(
         ingredientsInitialState,
         fetchIngredients.rejected(new Error(error), 'rejected')

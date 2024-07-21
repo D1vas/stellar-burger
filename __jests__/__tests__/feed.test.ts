@@ -1,15 +1,11 @@
 import { fetchFeeds, feedsInitialState } from '../../src/services/slices';
 
 import reducer from '../../src/services/slices/feed';
+import { feedsMockData } from '../test-constants'
 
-const feedsMockData = {
-  orders: [],
-  total: 1,
-  totalToday: 1
-};
 
 describe('Тестирование feed', () => {
-  describe('Асинхронная функция: fetchFeed', () => {
+  describe('Асинхронная функция', () => {
     test('Начало запроса (pending)', () => {
       const state = reducer(feedsInitialState, fetchFeeds.pending('pending'));
 
@@ -27,7 +23,7 @@ describe('Тестирование feed', () => {
       expect(state.data).toEqual(feedsMockData);
     });
     test('Ошибка запроса (rejected)', () => {
-      const error = 'Error fetching feed';
+      const error = 'fetchFeeds.rejected';
 
       const state = reducer(
         feedsInitialState,

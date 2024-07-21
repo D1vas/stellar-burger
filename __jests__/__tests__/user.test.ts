@@ -14,10 +14,9 @@ import {
   loginMockData
 } from '../test-constants';
 
-describe('Тестирование userReducer', () => {
-  // Регистрация
+describe('Тестирование user', () => {
   describe('Асинхронная функция для регистрации', () => {
-    test('Начало запроса: register.pending', () => {
+    test('Начало запроса (pending)', () => {
       const state = reducer(
         userInitialState,
         register.pending('pending', registerMockData)
@@ -26,7 +25,7 @@ describe('Тестирование userReducer', () => {
       expect(state.registerError).toBeUndefined();
     });
 
-    test('Результат запроса: register.fulfilled', () => {
+    test('Результат запроса (fulfilled)', () => {
       const state = reducer(
         userInitialState,
         register.fulfilled(userMockData, 'fulfilled', registerMockData)
@@ -37,7 +36,7 @@ describe('Тестирование userReducer', () => {
       expect(state.data).toEqual(userMockData);
     });
 
-    test('Ошибка запроса', () => {
+    test('Ошибка запроса (rejected)', () => {
       const error = 'register.rejected';
 
       const state = reducer(
@@ -48,9 +47,9 @@ describe('Тестирование userReducer', () => {
       expect(state.registerError?.message).toEqual(error);
     });
   });
-  // Логин
-  describe('Асинхронная функция для входа в аккаунт: login', () => {
-    test('Начало запроса: login.pending', () => {
+
+  describe('Асинхронная функция для входа в аккаунт', () => {
+    test('Начало запроса (pending)', () => {
       const state = reducer(
         userInitialState,
         login.pending('pending', loginMockData)
@@ -59,7 +58,7 @@ describe('Тестирование userReducer', () => {
       expect(state.loginError).toBeUndefined();
     });
 
-    test('Результат запроса: login.fulfilled', () => {
+    test('Результат запроса (fulfilled)', () => {
       const state = reducer(
         userInitialState,
         login.fulfilled(userMockData, 'fulfilled', loginMockData)
@@ -70,7 +69,7 @@ describe('Тестирование userReducer', () => {
       expect(state.data).toEqual(userMockData);
     });
 
-    test('Ошибка запроса: login.rejected', () => {
+    test('Ошибка запроса (rejected)', () => {
       const error = 'login.rejected';
 
       const state = reducer(
@@ -82,9 +81,8 @@ describe('Тестирование userReducer', () => {
     });
   });
 
-  // Выход
-  describe('Асинхронная функция выхода из аккаунта: logout', () => {
-    test('Результат запроса: logout.fulfilled', () => {
+  describe('Асинхронная функция выхода из аккаунта', () => {
+    test('Результат запроса (fulfilled)', () => {
       const state = reducer(
         userInitialState,
         logout.fulfilled(undefined, 'fulfilled')
@@ -98,9 +96,8 @@ describe('Тестирование userReducer', () => {
     });
   });
 
-  // Проверка авторизации
-  describe('Асинхронная функция проверки авторизации: fetchUser', () => {
-    test('Результат запроса: fetchUser.fulfilled', () => {
+  describe('Асинхронная функция проверки авторизации', () => {
+    test('Результат запроса (fulfilled)', () => {
       const state = reducer(
         userInitialState,
         fetchUser.fulfilled(userMockData, 'fulfilled')
@@ -111,7 +108,7 @@ describe('Тестирование userReducer', () => {
       expect(state.data).toEqual(userMockData);
     });
 
-    test('Ошибка запроса: fetchUser.rejected', () => {
+    test('Ошибка запроса (rejected)', () => {
       const error = 'fetchUser.rejected';
 
       const state = reducer(
@@ -123,9 +120,9 @@ describe('Тестирование userReducer', () => {
       expect(state.isAuthChecked).toBeTruthy();
     });
   });
-  // Обновление информации о пользователе
-  describe('Асинхронная функция редактирования информации пользователя: updateUser', () => {
-    test('Результат запроса: updateUser.fulfilled', () => {
+
+  describe('Асинхронная функция редактирования информации пользователя', () => {
+    test('Результат запроса (fulfilled)', () => {
       const state = reducer(
         userInitialState,
         updateUser.fulfilled(userMockData, 'fulfilled', userMockData)

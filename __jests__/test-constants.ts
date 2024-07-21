@@ -14,6 +14,12 @@ const loginMockData = {
   password: 'qweqwe'
 };
 
+const feedsMockData = {
+  orders: [],
+  total: 1,
+  totalToday: 1
+};
+
 const bunMockData = {
   _id: '643d69a5c3f7b9001cfa093c',
   name: 'Краторная булка N-200i',
@@ -87,7 +93,7 @@ const ordersMockData = [
     ],
     _id: '6622337897ede0001d0666b5',
     status: 'done',
-    name: 'EXAMPLE_NAME',
+    name: 'Краторная булка N-200i',
     createdAt: '2024-04-19T09:03:52.748Z',
     updatedAt: '2024-04-19T09:03:58.057Z',
     number: 38321
@@ -102,5 +108,6 @@ export {
   ingredientMockData,
   ingredient1MockData,
   ingredientsMockData,
-  ordersMockData
+  ordersMockData,
+  feedsMockData
 };
