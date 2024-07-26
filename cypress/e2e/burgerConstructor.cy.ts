@@ -1,12 +1,18 @@
 import * as orderFixture from '../fixtures/order.json';
 
+const FIRST_BUN_SELECTOR = '[data-ingredient="bun"]:first-of-type';
+const MODALS_SELECTOR = '#modals';
+const ORDER_BUTTON_SELECTOR = '[data-order-button]';
+const INGREDIENT_BUTTON_SELECTOR = `${FIRST_BUN_SELECTOR} button`;
+const MODAL_TITLE_SELECTOR = '#modals h2:first-of-type';
+
 describe('Конструктор бургера', () => {
   beforeEach(() => {
     // Перехват запросов на получение ингредиентов
     cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients' });
 
     // Посещение основной страницы перед каждым тестом
-    cy.visit('http://localhost:4000/');
+    cy.visit('/');
   });
 
   it('Список ингредиентов доступен для выбора', () => {
@@ -22,20 +28,20 @@ describe('Конструктор бургера', () => {
   describe('Модальные окна', () => {
     describe('Открытие модального окна', () => {
       it('Открытие по клику на карточку ингредиента', () => {
-        cy.get('[data-ingredient="bun"]:first-of-type').click();
-        cy.get('#modals').children().should('have.length', 2);
+        cy.get(FIRST_BUN_SELECTOR).click();
+        cy.get(MODALS_SELECTOR).children().should('have.length', 2);
       });
 
       it('Через нажатие на крестик', () => {
-        cy.get('[data-ingredient="bun"]:first-of-type').click();
-        cy.get('#modals button:first-of-type').click();
-        cy.get('#modals').children().should('have.length', 0);
+        cy.get(FIRST_BUN_SELECTOR).click();
+        cy.get(`${MODALS_SELECTOR} button:first-of-type`).click();
+        cy.get(MODALS_SELECTOR).children().should('have.length', 0);
       });
 
       it('Закрытие через нажатие на оверлей', () => {
-        cy.get('[data-ingredient="bun"]:first-of-type').click();
-        cy.get('#modals>div:nth-of-type(2)').click({ force: true });
-        cy.get('#modals').children().should('have.length', 0);
+        cy.get(FIRST_BUN_SELECTOR).click();
+        cy.get(`${MODALS_SELECTOR} > div:nth-of-type(2)`).click({ force: true });
+        cy.get(MODALS_SELECTOR).children().should('have.length', 0);
       });
     });
   });
@@ -51,27 +57,26 @@ describe('Конструктор бургера', () => {
     });
 
     it('Оформление заказа', () => {
-      cy.get('[data-order-button]').should('be.disabled');
-      cy.get('[data-ingredient="bun"]:first-of-type button').click();
-      cy.get('[data-order-button]').should('be.disabled');
+      cy.get(ORDER_BUTTON_SELECTOR).should('be.disabled');
+      cy.get(INGREDIENT_BUTTON_SELECTOR).click();
+      cy.get(ORDER_BUTTON_SELECTOR).should('be.disabled');
       cy.get('[data-ingredient="main"]:first-of-type button').click();
-      cy.get('[data-order-button]').should('be.enabled');
+      cy.get(ORDER_BUTTON_SELECTOR).should('be.enabled');
 
       // Кнопка оформления заказа
-      cy.get('[data-order-button]').click();
-
-      // После успешной отправки заказа должго открыться модальное окно с подтверждением.
-      cy.get('#modals').children().should('have.length', 2);
+      cy.get(ORDER_BUTTON_SELECTOR).click();
 
       // Новое модальное окно должно содержать тестовый номер заказа
-      cy.get('#modals h2:first-of-type').should(
-        'have.text',
-        orderFixture.order.number
-      );
+      cy.intercept('POST', 'api/orders', { fixture: 'order' });
+      cy.get(MODAL_TITLE_SELECTOR).should('have.text', orderFixture.order.number);
+
+      // После успешной отправки заказа должго открыться модальное окно с подтверждением.
+      cy.get(MODALS_SELECTOR).children().should('have.length', 2);
 
       // После оформления заказа кнопка должна снова стать неактивной, а конструктор - сброшенным
-      cy.get('[data-order-button]').should('be.disabled');
+      cy.get(ORDER_BUTTON_SELECTOR).should('be.disabled');
     });
+
     afterEach(() => {
       // Очистка фейковых токенов
       cy.clearCookie('accessToken');
